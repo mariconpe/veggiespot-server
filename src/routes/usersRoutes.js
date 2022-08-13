@@ -1,12 +1,13 @@
 import express from "express";
-import ProdutoController from "../controllers/usersController.js";
+import UserController from "../controllers/usersController.js";
 
-const router = express.Router();
+const users = express.Router();
 
-router
-    .get("/users", ProdutoController.listarProdutos)
-    .post("/users", ProdutoController.adicionarProdutos)
-    .put("/users/{id}", ProdutoController.atualizarProduto)
-    .delete("/users/{id}", ProdutoController.deletarProduto)
+users
+    .get("/users", UserController.listarUsers)
+    .get("/users/:id", UserController.listarUserporId)
+    .post("/users", UserController.adicionarUsers)
+    .put("/users/:id", UserController.atualizarUser)
+    .delete("/users/:id", UserController.deletarUser)
 
-export default router;
+export default users;

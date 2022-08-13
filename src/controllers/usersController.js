@@ -8,24 +8,46 @@ class UserController{
         });
     }
 
+    static listarUserporId = (req, res) =>{
+        const id = req.params.id;
+        users.findById(id, (err, users) => {
+            if (!err){
+                res.status(200).send(users)
+            }
+            else res.status(400).send({message: `${err.message} - ID do user não localizada`})
+        })
+    }
+
     static adicionarUsers = (req, res) => {
-        users.push(req.body);
-        res.status(201).send('Produto cadastrado com sucesso');
+        let user = new users(req.body)
+        user.save((err) => {
+            if (err) {
+                res.status(500).json({message: `${err.message} - falha ao cadastrar user`})
+            }
+            else res.status(201).json(user.toJSON())
+        })
     }
     
     static atualizarUser= (req, res) => {
-        let index = (users.findIndex(user => user.id == req.params.id));
-        users[index].id = req.body.id;
-        users[index].nome = req.body.nome;
-        users[index].senha = req.body.senha;
-        res.status(200).json(users);    
+        const id = req.params.id
+
+        users.findByIdAndUpdate(id, {$set: req.body}, (err) =>{
+            if(!err){
+                res.status(200).send({message: 'Produto atualizado com sucesso!'})
+            }
+            else res.status(500).send({message: err.message})
+        })
     }
 
     static deletarUser = (req, res) => {
-        let index = (users.findIndex(user => user.id == req.params.id));
-        let nome = users[index].nome;   
-        users.pop(users[index]);
-        res.status(200).json(`Produto ${nome} deletado com sucesso`);    
+        const id = req.params.id
+
+        users.findByIdAndDelete(id, (err) =>{
+            if(!err){
+                res.status(200).send({message: 'Produto deletado com sucesso!'})
+            }
+            else res.status(500).send({message: err.message})
+        })
     }
 }
 

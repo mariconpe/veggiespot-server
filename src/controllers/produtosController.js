@@ -8,26 +8,47 @@ class ProdutoController{
         })
     }
 
+    static listarProdutosporId = (req, res) => {
+        const id = req.params.id
+
+        produtos.findById(id, (err, produtos) => {
+            if (!err) {
+                res.status(200).send(produtos)
+            }
+            else res.status(500).send({message: err.message})
+        })
+    }
+
     static adicionarProdutos = (req, res) => {
-        produtos.push(req.body);
-        res.status(201).send('Produto cadastrado com sucesso');
+        let produto = new produtos(req.body)
+        produto.save((err) => {
+            if (err) {
+                res.status(500).json({message: `${err.message} - falha ao cadastrar produto`})
+            }
+            else res.status(201).json(produto.toJSON())
+        })
     }
     
     static atualizarProduto = (req, res) => {
-        let index = (produtos.findIndex(produto => produto.id == req.params.id));
-        produtos[index].id = req.body.id;
-        produtos[index].categoria = req.body.categoria;
-        produtos[index].nome = req.body.nome;
-        produtos[index].valor = req.body.valor;
-        produtos[index].estoque = req.body.estoque;
-        res.status(200).json(produtos);    
+        const id = req.params.id
+
+        produtos.findByIdAndUpdate(id, {$set: req.body}, (err) => {
+            if (!err){
+                res.status(200).send({message: 'Produto atualizado com sucesso!'})
+            }
+            else res.status(500).send({message: err.message})
+        })
     }
 
     static deletarProduto = (req, res) => {
-        let index = (produtos.findIndex(produto => produto.id == req.params.id));
-        let nome = produtos[index].nome;   
-        produtos.pop(produtos[index]);
-        res.status(200).json(`Produto ${nome} deletado com sucesso`);    
+        const id = req.params.id
+
+        produtos.findByIdAndDelete(id, (err) =>{
+            if (!err){
+                res.status(200).send({message:'Produto deletado com sucesso!'})
+            }
+            else res.status(500).send({message: err.message})
+        })
     }
 }
 
