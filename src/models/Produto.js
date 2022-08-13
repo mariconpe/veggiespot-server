@@ -6,7 +6,10 @@ const produtoSchema = new mongoose.Schema(
         nome: {type: String, required: true},
         categoria: {type: String, required: true},
         estoque: {type: Number, required: true},
-        valor: {type: Number, required: true}
+        valor: {type: Number, required: true},
+        cor: {type: String},
+        marca: {type: String},
+        favorito: {type: Boolean}
     }
 );
 
