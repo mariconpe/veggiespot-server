@@ -1,6 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Product } from './product.model';
-import { map } from 'lodash';
 @Injectable()
 export class ProductsService {
   constructor(
