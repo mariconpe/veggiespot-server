@@ -15,6 +15,12 @@ export const databaseProviders = [
         define: {
           underscored: true,
         },
+        sync: {
+          alter: {
+            drop: false,
+          },
+          force: true,
+        },
       });
       sequelize.addModels([Product]);
       await sequelize.sync();
