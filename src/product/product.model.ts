@@ -5,10 +5,6 @@ import { Table, Column, Model } from 'sequelize-typescript';
 export class Product extends Model {
   @Column
   @ApiProperty()
-  id: number;
-
-  @Column
-  @ApiProperty()
   nome: string;
 
   @Column

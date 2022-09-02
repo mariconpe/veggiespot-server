@@ -9,9 +9,12 @@ export const databaseProviders = [
         dialect: 'mysql',
         host: 'localhost',
         port: 3306,
-        username: 'root',
-        password: 'password',
-        database: 'nest',
+        username: 'admin',
+        password: 'veggiespot_admin',
+        database: 'products',
+        define: {
+          underscored: true,
+        },
       });
       sequelize.addModels([Product]);
       await sequelize.sync();
