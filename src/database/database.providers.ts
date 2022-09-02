@@ -9,8 +9,8 @@ export const databaseProviders = [
         dialect: 'mysql',
         host: 'localhost',
         port: 3306,
-        username: 'admin',
-        password: 'veggiespot_admin',
+        username: process.env.DATABASE_USER,
+        password: process.env.DATABASE_PASSWORD,
         database: 'products',
         define: {
           underscored: true,
