@@ -1,19 +1,29 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { DatabaseModule } from './database/database.module';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { AppModule } from './app.module';
+import cookieParser from 'cookie-parser';
 
-async function bootstrap() {
-  const app = await NestFactory.create(DatabaseModule);
+async function bootstrap(): Promise<void> {
+  const app = await NestFactory.create(AppModule);
+
+  app.useGlobalPipes(new ValidationPipe());
+  app.use(cookieParser());
+
+  app.enableCors();
 
   const config = new DocumentBuilder()
-    .setTitle('VeggieSpot Products API')
-    .setDescription('List of VeggieSpot products')
-    .setVersion('1.0')
-    .addTag('veggiespot')
+    .setTitle('VeggieSpot')
+    .setDescription('VeggieSpot')
+    .setVersion('0.0.1')
+    .addBearerAuth()
     .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
 
-  await app.listen(3000);
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document, {
+    customSiteTitle: 'VeggieSpot API',
+  });
+
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
