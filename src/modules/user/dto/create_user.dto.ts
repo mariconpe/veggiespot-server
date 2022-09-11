@@ -8,7 +8,7 @@ import {
 import { User } from '../entities/user.entity';
 
 export class CreateUserDto implements User {
-  @IsEmail({ message: 'E-mail inválidp.' })
+  @IsEmail({ message: 'E-mail inválido.' })
   email: string;
 
   @IsString()
