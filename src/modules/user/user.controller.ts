@@ -12,10 +12,7 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
-// import { Public } from 'src/auth/public.decorator';
-// import { IsAdmin } from 'src/common/decorators/is_admin.decorator';
 import { CreateUserDto } from './dto/create_user.dto';
-import { DeleteUserDto } from './dto/delete_user.dto';
 import { UpdateUserRoleDto } from './dto/update_user_role.dto';
 import { UpdateUserDto } from './dto/update_user.dto';
 import { UserWithoutPassword } from './entities/user_without_password.entity';
@@ -28,7 +25,6 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @ApiOperation({ summary: 'Creates a new user' })
-  // @Public()
   @Post()
   createUser(
     @Body() createUserDto: CreateUserDto,
@@ -37,7 +33,6 @@ export class UserController {
   }
 
   @ApiOperation({ summary: 'Returns all users' })
-  // @Public()
   @Get()
   findAllUsers(): Promise<User[]> {
     return this.userService.findAllUsers();
@@ -66,7 +61,6 @@ export class UserController {
   }
 
   @ApiOperation({ summary: "Admin set user's role" })
-  // @IsAdmin()
   @Patch('role')
   updateUserRole(
     @Body() updateUserRoleDto: UpdateUserRoleDto,

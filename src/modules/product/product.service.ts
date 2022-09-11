@@ -5,7 +5,6 @@ import { CreateProductDto } from './dto/create_product.dto';
 import { FindProductsDto } from './dto/find_products.dto';
 import { UpdateProductDto } from './dto/update_product.dto';
 import { Product } from './entities/product.entity';
-import { File } from './types';
 @Injectable()
 export class ProductService {
   constructor(private readonly prisma: PrismaService) {}
@@ -25,13 +24,6 @@ export class ProductService {
     });
 
     return product;
-  }
-
-  async uploadPicture(id: string, file: File): Promise<Product> {
-    return this.prisma.product.update({
-      where: { id },
-      data: { picture: file.filename },
-    });
   }
 
   async findAllProducts({

@@ -8,13 +8,13 @@ import {
 import { User } from '../entities/user.entity';
 
 export class CreateUserDto implements User {
-  @IsEmail({ message: 'Must be an e-mail' })
+  @IsEmail({ message: 'E-mail inválidp.' })
   email: string;
 
   @IsString()
-  @MinLength(8, { message: 'Password must have length of at least 8' })
+  @MinLength(8, { message: 'A senha deve ter ao menos 8 digítos' })
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[a-z]).*$/, {
-    message: 'Password must contain at least 1 number and 1 letter',
+    message: 'Senha deve conter ao menos 1 número e 1 letra',
   })
   password: string;
 

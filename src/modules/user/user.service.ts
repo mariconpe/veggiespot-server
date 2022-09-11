@@ -75,7 +75,7 @@ export class UserService {
     delete user.password;
 
     if (!user) {
-      throw new NotFoundException('User not found by id');
+      throw new NotFoundException('Usuário não encontrado pela ID.');
     }
 
     return { ...user };
